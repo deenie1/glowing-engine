@@ -1,0 +1,53 @@
+{
+	"name": "web3-eth-ens",
+	"version": "4.0.0-alpha.0",
+	"description": "This package has ENS functions for interacting with Ethereum Name Service.",
+	"main": "dist/index.js",
+	"repository": "https://github.com/ChainSafe/web3.js",
+	"author": "ChainSafe Systems",
+	"license": "LGPL-3.0",
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"clean": "rimraf dist",
+		"prebuild": "rimraf dist",
+		"build": "tsc --build",
+		"build:check": "node -e \"require('./dist')\"",
+		"lint": "eslint --ext .js,.ts .",
+		"lint:fix": "eslint --fix --ext .js,.ts .",
+		"format": "prettier --write '**/*'",
+		"test": "jest --config=./test/unit/jest.config.js",
+		"test:coverage": "jest --config=./test/unit/jest.config.js --coverage=true --coverage-reporters=text",
+		"test:ci": "jest --coverage=true --coverage-reporters=json --verbose",
+		"test:watch": "npm test -- --watch",
+		"test:unit": "jest --config=./test/unit/jest.config.js",
+		"test:integration": "jest --config=./test/integration/jest.config.js --runInBand --passWithNoTests",
+		"ens:download:registry": "curl -L -o test/fixtures/ens/registry.json 'https://api.etherscan.io/api?module=contract&action=getabi&address=0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'",
+		"ens:download:reverse_registrar": "curl -L -o test/fixtures/ens/reverse_registrar.json 'https://api.etherscan.io/api?module=contract&action=getabi&address=0x084b1c3c81545d370f3634392de611caabff8148'"
+	},
+	"devDependencies": {
+		"@types/jest": "^27.0.3",
+		"@typescript-eslint/eslint-plugin": "^5.4.0",
+		"@typescript-eslint/parser": "^5.4.0",
+		"eslint": "^8.3.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-config-web3-base": "0.1.0",
+		"eslint-plugin-import": "^2.25.3",
+		"jest": "^27.3.1",
+		"jest-extended": "^1.1.0",
+		"prettier": "^2.4.1",
+		"ts-jest": "^27.0.7",
+		"typescript": "^4.5.2"
+	},
+	"dependencies": {
+		"web3-errors": "1.0.0-alpha.0",
+		"idna-uts46-hx": "^3.4.0",
+		"web3-common": "^1.0.0-alpha.0",
+		"web3-core": "^4.0.0-alpha.0",
+		"web3-eth": "^4.0.0-alpha.1",
+		"web3-eth-contract": "^4.0.0-alpha.0",
+		"web3-net": "^4.0.0-alpha.0",
+		"web3-utils": "^4.0.0-alpha.1"
+	}
+}
