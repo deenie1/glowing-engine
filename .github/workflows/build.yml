@@ -1,0 +1,91 @@
+name: "Build"
+on:
+  push:
+    branches:
+      - "4.x"
+    tags:
+      - v4*
+  pull_request:
+    branches:
+      - "4.x"
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build: 
+    name: Build Packages
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3    
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 14
+          cache: yarn
+      - run: yarn
+
+  lint:
+    name: lint
+    needs: build
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3    
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 14
+          cache: yarn
+      - run: yarn
+      - run: yarn lint
+
+  unit:
+    name: Unit Tests
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 14, 16 ]
+    steps:
+      - uses: actions/checkout@v3    
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: yarn
+      - run: yarn
+      - run: yarn test:unit
+
+  integration:
+    name: Integration
+    needs: unit
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [ 14, 16 ]
+        backend: ['geth', 'ganache']
+        mode: ['http', 'ws']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: yarn
+      -   run: yarn
+      -   run: yarn test:e2e:${{ matrix.backend }}:${{ matrix.mode }}
+          shell: bash
+
+  e2e:
+    name: End-to-End
+    needs: unit
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [ 14, 16 ]
+        browser: ['electron', 'chrome', 'firefox']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: yarn
+      -   run: yarn
+      -   run: yarn test:e2e:ganache:ws:${{ matrix.browser }}
+          shell: bash
