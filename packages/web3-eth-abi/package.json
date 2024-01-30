@@ -1,0 +1,37 @@
+{
+	"name": "web3-eth-abi",
+	"version": "4.0.1-alpha.1",
+	"description": "Web3 module encode and decode EVM in/output.",
+	"main": "dist/index.js",
+	"repository": "https://github.com/ethereum/web3.js/tree/4.x/packages/web3-eth-abi",
+	"author": "ChainSafe Systems",
+	"license": "LGPL-3.0",
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"clean": "run -T rimraf dist",
+		"build": "yarn run clean && run -T tsc --build",
+		"build:check": "node -e \"require('./dist')\"",
+		"lint": "run -T eslint --ext .js,.ts .",
+		"lint:fix": "run -T eslint --fix --ext .js,.ts .",
+		"format": "run -T prettier --write '**/*'",
+		"test": "run -T jest --config=./test/unit/jest.config.js",
+		"test:coverage": "run -T jest --config=./test/unit/jest.config.js --coverage=true --coverage-reporters=text",
+		"test:ci": "run -T jest --coverage=true --coverage-reporters=json --verbose",
+		"test:watch": "yarn test -- --watch",
+		"test:unit": "run -T jest --config=./test/unit/jest.config.js",
+		"test:integration": "run -T jest --config=./test/integration/jest.config.js --passWithNoTests"
+	},
+	"dependencies": {
+		"@ethersproject/abi": "^5.6.4",
+		"web3-errors": "workspace:^",
+		"web3-types": "workspace:^",
+		"web3-utils": "workspace:^"
+	},
+	"devDependencies": {
+		"@humeris/espresso-shot": "^4.0.0",
+		"jest-extended": "^3.0.1",
+		"jest-when": "^3.5.1"
+	}
+}

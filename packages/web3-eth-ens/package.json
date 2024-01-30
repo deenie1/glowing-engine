@@ -1,0 +1,41 @@
+{
+	"name": "web3-eth-ens",
+	"version": "4.0.1-alpha.1",
+	"description": "This package has ENS functions for interacting with Ethereum Name Service.",
+	"main": "dist/index.js",
+	"repository": "https://github.com/ChainSafe/web3.js",
+	"author": "ChainSafe Systems",
+	"license": "LGPL-3.0",
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"clean": "run -T rimraf dist",
+		"build": "yarn run clean && run -T tsc --build",
+		"build:check": "node -e \"require('./dist')\"",
+		"lint": "run -T eslint --ext .js,.ts .",
+		"lint:fix": "run -T eslint --fix --ext .js,.ts .",
+		"format": "run -T prettier --write '**/*'",
+		"test": "run -T jest --config=./test/unit/jest.config.js",
+		"test:coverage": "run -T jest --config=./test/unit/jest.config.js --coverage=true --coverage-reporters=text",
+		"test:ci": "run -T jest --coverage=true --coverage-reporters=json --verbose",
+		"test:watch": "yarn test -- --watch",
+		"test:unit": "run -T jest --config=./test/unit/jest.config.js",
+		"test:integration": "run -T jest --config=./test/integration/jest.config.js ",
+		"ens:download:registry": "curl -L -o test/fixtures/ens/registry.json 'https://api.etherscan.io/api?module=contract&action=getabi&address=0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'",
+		"ens:download:reverse_registrar": "curl -L -o test/fixtures/ens/reverse_registrar.json 'https://api.etherscan.io/api?module=contract&action=getabi&address=0x084b1c3c81545d370f3634392de611caabff8148'"
+	},
+	"devDependencies": {
+		"jest-extended": "^3.0.1"
+	},
+	"dependencies": {
+		"idna-uts46-hx": "^3.5.0",
+		"web3-core": "workspace:^",
+		"web3-errors": "workspace:^",
+		"web3-eth": "workspace:^",
+		"web3-eth-contract": "workspace:^",
+		"web3-net": "workspace:^",
+		"web3-types": "workspace:^",
+		"web3-utils": "workspace:^"
+	}
+}

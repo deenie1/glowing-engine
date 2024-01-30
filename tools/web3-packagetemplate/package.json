@@ -1,0 +1,29 @@
+{
+	"name": "web3-packagetemplate",
+	"version": "0.1.1-alpha.0",
+	"description": "Package template for Web3 4.x.x",
+	"main": "dist/index.js",
+	"repository": "https://github.com/ChainSafe/web3.js",
+	"author": "ChainSafe Systems",
+	"license": "LGPL-3.0",
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"clean": "run -T rimraf dist",
+		"build": "yarn run clean && run -T tsc --build",
+		"build:check": "node -e \"require('./dist')\"",
+		"lint": "run -T eslint --ext .js,.ts .",
+		"lint:fix": "run -T eslint --fix --ext .js,.ts .",
+		"format": "run -T prettier --write '**/*'",
+		"test": "run -T jest --config=./test/unit/jest.config.js",
+		"test:coverage": "run -T jest --config=./test/unit/jest.config.js --coverage=true --coverage-reporters=text",
+		"test:ci": "run -T jest --coverage=true --coverage-reporters=json --verbose",
+		"test:watch": "yarn test -- --watch",
+		"test:unit": "run -T jest --config=./test/unit/jest.config.js",
+		"test:integration": "run -T jest --config=./test/integration/jest.config.js --passWithNoTests"
+	},
+	"devDependencies": {
+		"jest-extended": "^3.0.1"
+	}
+}

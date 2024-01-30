@@ -1,0 +1,37 @@
+{
+	"name": "web3-validator",
+	"version": "0.1.1-alpha.1",
+	"description": "JSON-Schema compatible validator for web3",
+	"main": "dist/index.js",
+	"browser": "dist/index.min.js",
+	"repository": "https://github.com/ChainSafe/web3.js",
+	"author": "ChainSafe Systems",
+	"license": "LGPL-3.0",
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"clean": "run -T rimraf dist",
+		"build": "yarn run clean && run -T tsc --build",
+		"build:web": "npx webpack",
+		"build:check": "node -e \"require('./dist')\"",
+		"lint": "eslint --ext .js,.ts .",
+		"lint:fix": "eslint --fix --ext .js,.ts .",
+		"format": "prettier --write '**/*'",
+		"test": "jest --config=./test/unit/jest.config.js",
+		"test:coverage": "jest --config=./test/unit/jest.config.js --coverage=true --coverage-reporters=text",
+		"test:ci": "jest --coverage=true --coverage-reporters=json --verbose",
+		"test:watch": "npm test -- --watch",
+		"test:unit": "jest --config=./test/unit/jest.config.js",
+		"test:integration": "jest --config=./test/integration/jest.config.js --passWithNoTests"
+	},
+	"dependencies": {
+		"ajv": "^8.11.0",
+		"ethereum-cryptography": "^1.1.2",
+		"web3-errors": "workspace:^",
+		"web3-types": "workspace:^"
+	},
+	"devDependencies": {
+		"jest-extended": "^3.0.1"
+	}
+}

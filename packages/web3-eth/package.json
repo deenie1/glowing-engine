@@ -1,0 +1,48 @@
+{
+	"name": "web3-eth",
+	"version": "4.0.1-alpha.1",
+	"description": "Web3 module to interact with the Ethereum blockchain and smart contracts.",
+	"main": "dist/index.js",
+	"repository": "https://github.com/ChainSafe/web3.js",
+	"author": "ChainSafe Systems",
+	"license": "LGPL-3.0",
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"clean": "run -T rimraf dist",
+		"build": "yarn run clean && run -T tsc --build",
+		"build:check": "node -e \"require('./dist')\"",
+		"lint": "run -T eslint --ext .js,.ts .",
+		"lint:fix": "run -T eslint --fix --ext .js,.ts .",
+		"format": "run -T prettier --write '**/*'",
+		"test": "run -T jest --config=./test/unit/jest.config.js",
+		"test:coverage": "run -T jest --config=./test/unit/jest.config.js --coverage=true --coverage-reporters=text",
+		"test:ci": "run -T est --coverage=true --coverage-reporters=json --verbose",
+		"test:watch": "yarn test -- --watch",
+		"test:unit": "run -T jest --config=./test/unit/jest.config.js",
+		"test:integration": "run -T jest --config=./test/integration/jest.config.js --runInBand --forceExit",
+		"test:e2e:electron": "yarn dlx cypress run --headless --browser electron",
+		"test:e2e:chrome": "yarn dlx cypress run --headless --browser chrome",
+		"test:e2e:firefox": "yarn dlx cypress run --headless --browser firefox"
+	},
+	"devDependencies": {
+		"jest-extended": "^3.0.1",
+		"web3-eth-abi": "workspace:^",
+		"web3-providers-http": "workspace:^"
+	},
+	"dependencies": {
+		"@ethereumjs/common": "^2.6.5",
+		"@ethereumjs/tx": "^3.5.2",
+		"setimmediate": "^1.0.5",
+		"web3-core": "workspace:^",
+		"web3-errors": "workspace:^",
+		"web3-eth-accounts": "workspace:^",
+		"web3-net": "workspace:^",
+		"web3-providers-ws": "workspace:^",
+		"web3-rpc-methods": "^0.1.0-alpha.0",
+		"web3-types": "workspace:^",
+		"web3-utils": "workspace:^",
+		"web3-validator": "workspace:^"
+	}
+}

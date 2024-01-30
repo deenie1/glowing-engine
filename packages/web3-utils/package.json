@@ -1,0 +1,38 @@
+{
+	"name": "web3-utils",
+	"sideEffects": false,
+	"version": "4.0.1-alpha.1",
+	"description": "Collection of utility functions used in web3.js.",
+	"main": "dist/index.js",
+	"repository": "https://github.com/ChainSafe/web3.js",
+	"author": "ChainSafe Systems",
+	"license": "LGPL-3.0",
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"clean": "run -T rimraf dist",
+		"build": "yarn run clean && run -T tsc --build",
+		"build:check": "node -e \"require('./dist')\"",
+		"lint": "eslint --ext .js,.ts .",
+		"lint:fix": "eslint --fix --ext .js,.ts .",
+		"format": "prettier --write '**/*'",
+		"test": "jest --config=./test/unit/jest.config.js",
+		"test:coverage": "jest --config=./test/unit/jest.config.js --coverage=true --coverage-reporters=text",
+		"test:ci": "jest --coverage=true --coverage-reporters=json --verbose",
+		"test:watch": "npm test -- --watch",
+		"test:unit": "jest --config=./test/unit/jest.config.js",
+		"test:integration": "jest --config=./test/integration/jest.config.js --passWithNoTests"
+	},
+	"devDependencies": {
+		"@humeris/espresso-shot": "^4.0.0",
+		"jest-extended": "^3.0.1",
+		"js-sha3": "^0.8.0"
+	},
+	"dependencies": {
+		"ethereum-cryptography": "^1.1.2",
+		"web3-errors": "workspace:^",
+		"web3-types": "workspace:^",
+		"web3-validator": "workspace:^"
+	}
+}

@@ -1,0 +1,67 @@
+{
+	"name": "web3",
+	"version": "4.0.1-alpha.1",
+	"description": "Ethereum JavaScript API",
+	"main": "dist/index.js",
+	"browser": "dist/web3.min.js",
+	"repository": "https://github.com/ChainSafe/web3.js",
+	"engines": {
+		"node": ">=12.0.0"
+	},
+	"author": "ChainSafe Systems",
+	"license": "LGPL-3.0",
+	"keywords": [
+		"Ethereum",
+		"JavaScript",
+		"API"
+	],
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"clean": "run -T rimraf dist",
+		"build": "yarn run clean && yarn version:output && run -T tsc --build",
+		"version:output": "[ -z $npm_package_version ] && rm ./src/version.ts || echo \"/* eslint-disable header/header */ export const Web3PkgInfo = { version: '$npm_package_version' };\" > ./src/version.ts",
+		"build:web": "run -T webpack",
+		"build:check": "node -e \"require('./dist')\"",
+		"lint": "run -T eslint --ext .js,.ts .",
+		"lint:fix": "run -T eslint --fix --ext .js,.ts .",
+		"format": "run -T prettier --write '**/*'",
+		"test": "run -T jest --config=./test/unit/jest.config.js",
+		"test:coverage": "run -T jest --config=./test/unit/jest.config.js --coverage=true --coverage-reporters=text",
+		"test:ci": "run -T jest --coverage=true --coverage-reporters=json --verbose",
+		"test:watch": "yarn test -- --watch",
+		"test:unit": "run -T jest --config=./test/unit/jest.config.js",
+		"test:integration": "run -T jest --config=./test/integration/jest.config.js --forceExit",
+		"test:blackbox:ganache:http": "./scripts/black_box_test.sh ganache http",
+		"test:blackbox:ganache:ws": "./scripts/black_box_test.sh ganache ws",
+		"test:blackbox:geth:http": "./scripts/black_box_test.sh geth http",
+		"test:blackbox:geth:ws": "./scripts/black_box_test.sh geth ws",
+		"test:blackbox:infura:http": "./scripts/black_box_test.sh infura http",
+		"test:blackbox:infura:ws": "./scripts/black_box_test.sh infura ws"
+	},
+	"devDependencies": {
+		"@truffle/hdwallet-provider": "^2.0.12",
+		"ganache": "^7.5.0",
+		"hardhat": "^2.12.2",
+		"in3": "^3.3.3",
+		"jest-extended": "^3.0.1",
+		"web3-providers-http": "workspace:^",
+		"web3-providers-ipc": "workspace:^",
+		"web3-providers-ws": "workspace:^"
+	},
+	"dependencies": {
+		"web3-core": "workspace:^",
+		"web3-errors": "workspace:^",
+		"web3-eth": "workspace:^",
+		"web3-eth-abi": "workspace:^",
+		"web3-eth-accounts": "workspace:^",
+		"web3-eth-contract": "workspace:^",
+		"web3-eth-ens": "workspace:^",
+		"web3-eth-iban": "workspace:^",
+		"web3-eth-personal": "workspace:^",
+		"web3-net": "workspace:^",
+		"web3-types": "workspace:^",
+		"web3-utils": "workspace:^"
+	}
+}
