@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wallet create should create given # of accounts using the account provider 1`] = `
+[
+  {
+    "address": "account_create_1",
+  },
+  {
+    "address": "account_create_2",
+  },
+  {
+    "address": "account_create_3",
+  },
+  {
+    "address": "account_create_4",
+  },
+  {
+    "address": "account_create_5",
+  },
+  {
+    "address": "account_create_6",
+  },
+  {
+    "address": "account_create_7",
+  },
+  {
+    "address": "account_create_8",
+  },
+  {
+    "address": "account_create_9",
+  },
+  {
+    "address": "account_create_10",
+  },
+]
+`;
