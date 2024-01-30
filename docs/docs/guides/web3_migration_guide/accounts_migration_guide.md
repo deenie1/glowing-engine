@@ -1,0 +1,14 @@
+---
+sidebar_position: 5
+sidebar_label: web3.eth.accounts
+---
+
+# web3.eth.accounts Migration Guide
+
+## Breaking Changes
+
+### web3.eth.accounts.create and wallet.create
+
+In 1.x the create method has an optional parameter `entropy`.
+
+In 4.x the create method does not have `entropy` as a parameter. Instead 4.x uses an audited package [ethereum-cryptography/secp256k1](https://github.com/ethereum/js-ethereum-cryptography#secp256k1-curve) to generate private keys.
