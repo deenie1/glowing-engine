@@ -1,0 +1,59 @@
+name: "Build"
+on:
+    push:
+        branches:
+            - "4.x"
+        tags:
+            - v4*
+    pull_request:
+        branches:
+            - "4.x"
+        types: [opened, reopened, synchronize]
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        env:
+            TEST: "build_and_lint"
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 14
+
+            - uses: actions/checkout@v2
+
+            - uses: actions/cache@v2
+              id: cache-deps
+              with:
+                  path: |
+                      node_modules
+                      */*/node_modules
+                  key: ${{ runner.os }}-node14-${{ hashFiles('**/yarn-lock.json') }}
+
+            - run: yarn
+              if: steps.cache-deps.outputs.cache-hit != 'true'
+
+            - run: yarn lint
+    unit:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 14
+
+            - uses: actions/checkout@v2
+
+            - uses: actions/cache@v2
+              id: cache-deps
+              with:
+                  path: |
+                      node_modules
+                      */*/node_modules
+                  key: ${{ runner.os }}-node14-${{ hashFiles('**/yarn-lock.json') }}
+
+            - run: yarn
+              if: steps.cache-deps.outputs.cache-hit != 'true'
+
+            - run: yarn build
+
+            - run: yarn test:unit
